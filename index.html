@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thefili02 - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #000000 0%, #0a1628 50%, #001529 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="1" fill="rgba(59,130,246,0.1)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            background: linear-gradient(to right, #fff, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.3s forwards;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .projects {
+            padding: 5rem 2rem;
+            background: #000;
+            min-height: 100vh;
+        }
+
+        .projects h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        .carousel-wrapper {
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .project-card {
+            min-width: 100%;
+            background: #0a0a0a;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-image-placeholder {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
+        }
+
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .project-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-size: 2rem;
+            user-select: none;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(59, 130, 246, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-arrow.prev {
+            left: 0;
+        }
+
+        .carousel-arrow.next {
+            right: 0;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            background: rgba(59, 130, 246, 0.5);
+        }
+
+        .dot.active {
+            background: #3b82f6;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        .contact {
+            padding: 5rem 2rem;
+            background: #000;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 2rem;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .contact-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+        }
+
+        .contact-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-value {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: rgba(59, 130, 246, 0.7);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .projects h2, .contact h2 {
+                font-size: 2rem;
+            }
+            
+            .carousel-container {
+                padding: 0 60px;
+            }
+            
+            .carousel-arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .project-image {
+                height: 250px;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+
+.project-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.project-content li {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.project-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+.project-content li:hover::before {
+    transform: translateX(3px);
+    transition: transform 0.3s ease;
+}
+    </style>
+
+ <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hello, I'm Thefili02</h1>
+            <p>Full Stack Developer • Virtual Pilot</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section class="projects" id="projects">
+        <div class="carousel-container">
+            <div class="carousel-arrow prev" onclick="changeSlide(-1)">‹</div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+<div class="project-card">
+    <div class="project-image">
+        <img src="24Route.png" alt="Project">
+    </div>
+    <div class="project-content">
+        <h3>24Route</h3>
+        <p>Comprehensive application for ATC24 (VATSIM on Roblox) dedicated to creating aviation routes with SID (Standard Instrument Departure) and STAR (Standard Terminal Arrival Route) procedures.</p>
+        <p>Technical features:</p>
+        <ul>
+            <li>Robust backend for aeronautical data acquisition and management</li>
+            <li>Modern, intuitive frontend for route planning</li>
+            <li>Over 10,000 lines of code</li>
+        </ul>
+        <a href="https://24-route.xyz/" target="_blank" class="project-link">View Project →</a>
+    </div>
+</div>
+
+<div class="project-card">
+    <div class="project-image">
+        <img src="24Pilot.png" alt="Project">
+    </div>
+    <div class="project-content">
+        <h3>24Pilot</h3>
+        <p>Advanced application for ATC24 (VATSIM on Roblox) that recreates a professional ILS and navigation display.</p>
+        <p>Key features:</p>
+        <ul>
+            <li>Integrates with ATC24 API to acquire real-time aircraft position and speed data</li>
+            <li>Calculates and visualizes ILS Glide Slope (G/S) and Localizer (LOC) through custom mathematical algorithms</li>
+            <li>Contains over 17,000 lines of code</li>
+        </ul>
+        <a href="https://24pilot.ptfsrp.com/" target="_blank" class="project-link">View Project →</a>
+    </div>
+</div>
+
+<div class="project-card">
+    <div class="project-image">
+        <img src="Bots.png" alt="Project">
+    </div>
+    <div class="project-content">
+        <h3>Solana Memecoins Bots</h3>
+        <p>Comprehensive suite of 14+ automated bots for trading Solana memecoins. The system monitors the market 24/7 and sends Discord notifications when it identifies promising investment opportunities.</p>
+        <p>Analysis capabilities:</p>
+        <ul>
+            <li>Trading volumes (1h/4h/6h intervals)</li>
+            <li>Current market trends and meta</li>
+            <li>AI-powered pattern recognition that compares the performance of similar coins</li>
+        </ul>
+    </div>
+</div>
+            </div>
+            <div class="carousel-arrow next" onclick="changeSlide(1)">›</div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Get In Touch</h2>
+            <p class="contact-subtitle">Let's connect and work together!</p>
+            
+            <div class="contact-links">
+
+                <a target="_blank" class="contact-link">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-label">Discord</div>
+                    <div class="contact-value">@thefili02</div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.project-card');
+        const totalSlides = slides.length;
+        const dotsContainer = document.getElementById('carouselDots');
+
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartX - touchEndX > 50) changeSlide(1);
+            if (touchEndX - touchStartX > 50) changeSlide(-1);
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
